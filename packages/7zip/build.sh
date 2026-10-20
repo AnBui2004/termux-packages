@@ -9,11 +9,11 @@ DOC/unRarLicense.txt
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="26.04"
 TERMUX_PKG_SRCURL=(
-	"https://github.com/AnBui2004/7zip/archive/refs/tags/test1.tar.gz"
+	"https://github.com/AnBui2004/7zip/archive/refs/tags/26.04.tar.gz"
 	"https://github.com/ip7z/7zip/releases/download/${TERMUX_PKG_VERSION}/7z${TERMUX_PKG_VERSION//./}-linux-arm.tar.xz" # for manual, arm is smallest
 )
 TERMUX_PKG_SHA256=(
-	1d23cb292294921e6eefc0b2091d56f8705ca50861162e83e9e9f78f7b028df2
+	818f95c61f02668b0dc6716e4cd1643f94861070eebde1fb86c53aba69ad9980
 	9caf5e6942cfcfc50d7c0d7d7effe816f576206a081b78b2eb65c5fa28f076df
 )
 TERMUX_PKG_BUILD_DEPENDS="dos2unix"
@@ -52,9 +52,9 @@ termux_step_pre_configure() {
 	# Link libc++ statically so 7zz is self-contained
 	LDFLAGS+=" -static-libstdc++"
 	# Remove executable perms from docs
-	chmod -x /home/builder/.termux-build/7zip/src/7zip-test1/DOC/*.txt
+	chmod -x DOC/*.txt
 	# Remove -Werror to make build succeed
-	sed -i -e 's/-Werror//' /home/builder/.termux-build/7zip/src/7zip-test1/CPP/7zip/7zip_gcc.mak
+	sed -i -e 's/-Werror//' CPP/7zip/7zip_gcc.mak
 }
 
 termux_step_make() {
