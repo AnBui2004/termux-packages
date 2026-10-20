@@ -49,6 +49,8 @@ termux_step_post_get_source() {
 }
 
 termux_step_pre_configure() {
+    # Link libc++ statically so 7zz is self-contained
+	LDFLAGS+=" -static-libstdc++"
 	# Remove executable perms from docs
 	chmod -x DOC/*.txt
 	# Remove -Werror to make build succeed
