@@ -13,7 +13,7 @@ TERMUX_PKG_SRCURL=(
 	"https://github.com/ip7z/7zip/releases/download/${TERMUX_PKG_VERSION}/7z${TERMUX_PKG_VERSION//./}-linux-arm.tar.xz" # for manual, arm is smallest
 )
 TERMUX_PKG_SHA256=(
-	9691944c0fe0d01bb49373a704fb983fd33bc98b1738695179dfbf99ac1734f6
+	f38ab7a10e193f24d5900bfb91a9f66f651f0aa90319d451eafde945de9e2e05
 	9caf5e6942cfcfc50d7c0d7d7effe816f576206a081b78b2eb65c5fa28f076df
 )
 TERMUX_PKG_BUILD_DEPENDS="dos2unix"
