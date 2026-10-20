@@ -9,7 +9,7 @@ DOC/unRarLicense.txt
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="26.04"
 TERMUX_PKG_SRCURL=(
-	"https://github.com/ip7z/7zip/releases/download/${TERMUX_PKG_VERSION}/7z${TERMUX_PKG_VERSION//./}-src.tar.xz"
+	"https://github.com/AnBui2004/7zip/archive/refs/tags/test0.tar.gz"
 	"https://github.com/ip7z/7zip/releases/download/${TERMUX_PKG_VERSION}/7z${TERMUX_PKG_VERSION//./}-linux-arm.tar.xz" # for manual, arm is smallest
 )
 TERMUX_PKG_SHA256=(
