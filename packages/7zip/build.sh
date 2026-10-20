@@ -9,11 +9,11 @@ DOC/unRarLicense.txt
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="26.04"
 TERMUX_PKG_SRCURL=(
-	"https://github.com/AnBui2004/7zip/archive/refs/tags/test0.tar.gz"
+	"https://github.com/AnBui2004/7zip/archive/refs/tags/test1.tar.gz"
 	"https://github.com/ip7z/7zip/releases/download/${TERMUX_PKG_VERSION}/7z${TERMUX_PKG_VERSION//./}-linux-arm.tar.xz" # for manual, arm is smallest
 )
 TERMUX_PKG_SHA256=(
-	f38ab7a10e193f24d5900bfb91a9f66f651f0aa90319d451eafde945de9e2e05
+	1d23cb292294921e6eefc0b2091d56f8705ca50861162e83e9e9f78f7b028df2
 	9caf5e6942cfcfc50d7c0d7d7effe816f576206a081b78b2eb65c5fa28f076df
 )
 TERMUX_PKG_BUILD_DEPENDS="dos2unix"
