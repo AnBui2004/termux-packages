@@ -2,7 +2,7 @@ TERMUX_PKG_HOMEPAGE=https://emscripten.org
 TERMUX_PKG_DESCRIPTION="Emscripten: An LLVM-to-WebAssembly Compiler"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="6.0.9"
+TERMUX_PKG_VERSION="6.0.13"
 TERMUX_PKG_SRCURL=git+https://github.com/emscripten-core/emscripten
 TERMUX_PKG_GIT_BRANCH="${TERMUX_PKG_VERSION}"
 TERMUX_PKG_DEPENDS="nodejs-lts | nodejs, python"
@@ -73,13 +73,13 @@ opt/emscripten/LICENSE
 
 # https://github.com/emscripten-core/emscripten/issues/11362
 # can switch to stable LLVM to save space once above is fixed
-_LLVM_COMMIT=b158b0ae6c559f87be325b8f427c5588e6a48823
-_LLVM_TGZ_SHA256=29064b66a4bec8f33a92022518378b83e2488aae3aea4a4e9285f12948706a2e
+_LLVM_COMMIT=5f47feeedda059f88c30ca6f11109faa5ce5428c
+_LLVM_TGZ_SHA256=744178fda5dcae4154db63c4f90e81bf5613504e340b4f8dc81ee64e40c12d7a
 
 # https://github.com/emscripten-core/emscripten/issues/12252
 # upstream says better bundle the right binaryen revision for now
-_BINARYEN_COMMIT=d03c25ea43d8f147fc222f9b88ff3bf641abe8da
-_BINARYEN_TGZ_SHA256=f16d9e97dc1b7ce3397f0cf10336f015d7aee9ef54f0d6dd98632436388be81a
+_BINARYEN_COMMIT=a631c1445ced72a905b3303b26f148fc706647dd
+_BINARYEN_TGZ_SHA256=f18112c782f2ab4a596afcaf2208a22732a07983bb59d19d391bbb463149c1ca
 
 # https://github.com/emscripten-core/emsdk/blob/main/emsdk.py
 # https://chromium.googlesource.com/emscripten-releases/+/refs/heads/main/src/build.py
@@ -401,7 +401,11 @@ _show_error_message() {
 termux_step_post_massage() {
 	local error=0
 
+	local rm_after_install_bin=$(echo "${TERMUX_PKG_RM_AFTER_INSTALL}" | grep -E '^opt/emscripten-(llvm|binaryen)/bin/' | xargs -n1 basename | sort)
 	local upstream_bin=$(find "${TERMUX_PKG_CACHEDIR}/emsdk/upstream/bin" -mindepth 1 -maxdepth 1 ! -type d -print0 | xargs -0 -P"${TERMUX_PKG_MAKE_PROCESSES}" -i bash -c "[[ -x '{}' ]] && basename '{}'" | sort)
+	# binaries we deliberately strip via TERMUX_PKG_RM_AFTER_INSTALL should not
+	# trigger a mismatch just because upstream's own release still ships them
+	upstream_bin=$(comm -23 <(echo "${upstream_bin}") <(echo "${rm_after_install_bin}"))
 	local llvm_bin=$(find "${TERMUX_TOPDIR}/emscripten/subpackages/emscripten-llvm/massage/${TERMUX_PREFIX_CLASSICAL}/opt/emscripten-llvm/bin" -mindepth 1 -maxdepth 1 ! -type d -print0 | xargs -0 -P"${TERMUX_PKG_MAKE_PROCESSES}" -i bash -c "[[ -x '{}' ]] && basename '{}'" | sort)
 	local binaryen_bin=$(find "${TERMUX_TOPDIR}/emscripten/subpackages/emscripten-binaryen/massage/${TERMUX_PREFIX_CLASSICAL}/opt/emscripten-binaryen/bin" -mindepth 1 -maxdepth 1 ! -type d -print0 | xargs -0 -P"${TERMUX_PKG_MAKE_PROCESSES}" -i bash -c "[[ -x '{}' ]] && basename '{}'" | sort)
 
